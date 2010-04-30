@@ -1,4 +1,4 @@
-tewie
+Stewie
 ======
 
 An irc bot engine that sure wants to dominate the world. It's still a work in project, so don't expect things to be working properly. Code contributions and reviews are very appreciated, just fork the project and send me a pull request.
