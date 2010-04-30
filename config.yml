@@ -1,0 +1,4 @@
+nickname: 'Stewie'
+server: 'irc.freenode.org'
+port: '6667'
+channel: '#teste_em_segredo'
