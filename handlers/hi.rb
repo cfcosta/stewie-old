@@ -1,5 +1,5 @@
 # encoding: utf-8
 
-add_handler(/!hi/) do
-  send_message :to => current_channel, :body => "#{message_caller}, olá!"
+add_handler(/!hi/) do |message|
+  message.send :to => message.channel, :body => "#{message.caller}, olá!"
 end

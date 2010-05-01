@@ -6,5 +6,6 @@ require './lib/autoloader'
 config = ConfigParser.new
 
 stewie = Stewie.new
+stewie.load_handlers
 stewie.set(config.options)
 stewie.connect!

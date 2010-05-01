@@ -7,6 +7,22 @@ class Stewie
     self.extend options.to_module
   end
 
+  def connect!
+    puts "Welcome to StewieBot!"
+
+    live_connection do |message|
+      @handlers.each do |pattern, block|
+        break block.call(message) if message.partition("PRIVMSG #{channel} ")[1].partition("\r\n")[0].match pattern
+      end
+    end
+  end
+
+  def load_handlers
+    Dir.glob("handlers/*.rb").each do |file|
+      eval File.read(file)
+    end
+  end
+
   def add_handler(pattern, &block)
     @handlers ||= {}
 
@@ -14,14 +30,9 @@ class Stewie
     @handlers[pattern] = block
   end
 
-  def connect!
-    puts "Welcome to StewieBot!"
-
-    live_connection do |message|
-      @handlers.each do |pattern, block|
-        break block.call if message.match pattern
-      end
-    end
+  def reload_handlers
+    @handlers = {}
+    load_handlers
   end
 
 private
@@ -33,6 +44,7 @@ private
         sock.print("JOIN #{channel}\r\n")
 
         while !sock.closed?
+          sock.print("PONG #{$1}\r\n") if line =~ /PING :(.*)/
           yield sock.readline.chomp
         end
       end
