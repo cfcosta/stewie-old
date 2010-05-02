@@ -21,6 +21,6 @@ class Message
   end
 
   def body
-    @line.partition("PRIVMSG #{channel} ")[1].partition("\r\n")[0]
+    @line.partition(":")[1]
   end
 end
