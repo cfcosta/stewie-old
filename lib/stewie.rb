@@ -46,7 +46,6 @@ private
 
         while !sock.closed?
           line = sock.readline.chomp
-          puts line
           sock.print("PONG #{$1}\r\n") if line =~ /PING :(.*)/
           yield line, sock
         end

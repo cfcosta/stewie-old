@@ -9,7 +9,7 @@ class Message
   end
 
   def send(options)
-    @socket.print("PRIVMSG #{options[:to]} :#{options[:body]}\r\n")
+    @socket.print("PRIVMSG #{options[:to]} #{options[:body]}\r\n")
   end
 
   def caller
@@ -21,6 +21,6 @@ class Message
   end
 
   def body
-    @line.partition(":")[1]
+    @line.partition(":")[2]
   end
 end
