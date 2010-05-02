@@ -3,16 +3,17 @@
 require 'socket'
 
 class Stewie
-  def set(options)
-    self.extend options.to_module
+  def initialize
+    self.extend $config.to_module
   end
 
   def connect!
     puts "Welcome to StewieBot!"
 
-    live_connection do |message|
+    live_connection do |line, socket|
+      message = Message.new(line, socket)
       @handlers.each do |pattern, block|
-        break block.call(message) if message.partition("PRIVMSG #{channel} ")[1].partition("\r\n")[0].match pattern
+        break block.call(message) if line.partition("PRIVMSG #{channel} ")[1].partition("\r\n")[0].match pattern
       end
     end
   end
@@ -45,7 +46,7 @@ private
 
         while !sock.closed?
           sock.print("PONG #{$1}\r\n") if line =~ /PING :(.*)/
-          yield sock.readline.chomp
+          yield sock.readline.chomp, sock
         end
       end
     rescue SocketError => e
