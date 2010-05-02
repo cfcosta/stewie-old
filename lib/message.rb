@@ -9,12 +9,12 @@ class Message
   end
 
   def send(options)
-    @socket.print("PRIVMSG #{options[:to]} #{options[:body]}\r\n")
+    @socket.print("PRIVMSG #{options[:to]} :#{options[:body]}\r\n")
   end
 
   def caller
     if @line =~ /(.*)?!.*?PRIVMSG #{self.channel}/i
-      return $1
+      return $1.gsub(/:/, '')
     end
 
     return nil
