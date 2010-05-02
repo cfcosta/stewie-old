@@ -13,7 +13,7 @@ class Stewie
     live_connection do |line, socket|
       message = Message.new(line, socket)
       @handlers.each do |pattern, block|
-        break block.call(message) if line.partition("PRIVMSG #{channel} ")[1].partition("\r\n")[0].match pattern
+        break block.call(message) if message.body.match pattern
       end
     end
   end

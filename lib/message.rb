@@ -19,4 +19,8 @@ class Message
 
     return nil
   end
+
+  def body
+    line.partition("PRIVMSG #{channel} ")[1].partition("\r\n")[0]
+  end
 end
