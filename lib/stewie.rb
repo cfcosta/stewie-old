@@ -45,7 +45,7 @@ private
         sock.print("JOIN #{channel}\r\n")
 
         while !sock.closed?
-          sock.print("PONG #{$1}\r\n") if line =~ /PING :(.*)/
+          sock.print("PONG #{$1}\r\n") if sock.readline.chomp =~ /PING :(.*)/
           yield sock.readline.chomp, sock
         end
       end
