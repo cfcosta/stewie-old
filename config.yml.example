@@ -1,4 +1,4 @@
-nickname: 'StewieBot'
-server: 'irc.freenode.org'
-port: '6667'
-channel: '#stewiebot'
+nickname: StewieBot
+server: irc.freenode.org
+port: 6667
+channels: ['#stewiebot']

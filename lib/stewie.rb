@@ -42,7 +42,10 @@ private
       TCPSocket.open(server, port) do |sock|
         sock.print("USER #{nickname} #{nickname} #{nickname} :StewieBot :)\r\n")
         sock.print("NICK #{nickname}\r\n")
-        sock.print("JOIN #{channel}\r\n")
+
+        channels.each do |channel|
+          sock.print("JOIN #{channel}\r\n")
+        end
 
         while !sock.closed?
           line = sock.readline.chomp

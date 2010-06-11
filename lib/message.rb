@@ -20,6 +20,10 @@ class Message
     return nil
   end
 
+  def channel
+    return $1 if @line =~ /.*?!.*?PRIVMSG (.*) .*/i
+  end
+
   def body
     @line.partition(":")[2]
   end
