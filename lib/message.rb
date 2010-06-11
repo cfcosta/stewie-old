@@ -14,7 +14,7 @@ class Message
 
   def caller
     if @line =~ /(.*)?!.*?PRIVMSG #{self.channel}/i
-      return $1.gsub(/:/, '')
+      return $1.delete ':'
     end
 
     return nil
